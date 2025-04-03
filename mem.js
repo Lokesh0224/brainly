@@ -14,3 +14,8 @@
 // npm install jsonwebtoken 
 // npm install @types/jsonwebtoken 
 
+//npm install bcryptjs
+// "scripts": {
+//     "build": "tsc -b",
+//     "start": "node dist/index.js",
+//     "dev": "npm run build && npm run start"
