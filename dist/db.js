@@ -3,12 +3,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.contentModel = exports.UserModel = void 0;
+exports.linkModel = exports.contentModel = exports.UserModel = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
 const mongoose_2 = require("mongoose");
 mongoose_1.default.connect("mongodb+srv://Lokesh0224:Z9ifPj7jAX6c0tVd@cluster1.6hfhayl.mongodb.net/secbrain");
 const UserSchema = new mongoose_2.Schema({
     username: { type: String, unique: true },
+    email: { type: String, unique: true },
     password: String
 });
 const contentSchema = new mongoose_2.Schema({
@@ -17,5 +18,10 @@ const contentSchema = new mongoose_2.Schema({
     tags: [{ type: mongoose_1.default.Types.ObjectId, ref: 'Tag' }],
     userId: { type: mongoose_1.default.Types.ObjectId, ref: 'User', required: true }
 });
+const linkSchema = new mongoose_2.Schema({
+    hash: String,
+    userId: { type: mongoose_1.default.Types.ObjectId, ref: 'User', required: true, unique: true }
+});
 exports.UserModel = (0, mongoose_2.model)('User', UserSchema);
 exports.contentModel = (0, mongoose_2.model)('Content', contentSchema);
+exports.linkModel = (0, mongoose_2.model)('Links', linkSchema);
