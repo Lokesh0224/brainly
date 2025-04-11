@@ -20,8 +20,10 @@ const db_1 = require("./db");
 const utills_1 = require("./utills");
 const config_1 = require("./config");
 const middleware_1 = require("./middleware");
+const cors_1 = __importDefault(require("cors"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+app.use((0, cors_1.default)());
 app.post('/api/v1/signup', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const requireBody = zod_1.default.object({
@@ -80,9 +82,9 @@ app.post('/api/v1/signin', (req, res) => __awaiter(void 0, void 0, void 0, funct
 }));
 //to post the content
 app.post('/api/v1/content', middleware_1.userMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { title, link } = req.body;
+    const { title, link, type } = req.body;
     yield db_1.contentModel.create({
-        title, link,
+        title, link, type,
         tags: [],
         //@ts-ignore
         userId: req.userId

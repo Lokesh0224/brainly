@@ -6,9 +6,12 @@ import { UserModel, contentModel, linkModel} from './db'
 import { random } from './utills'
 import { JWT_SECRET } from './config'
 import { userMiddleware } from './middleware'
+import cors from "cors"
 
 const app= express()
 app.use(express.json())
+app.use(cors())
+
 
 
 app.post('/api/v1/signup', async (req, res) => {
@@ -88,10 +91,10 @@ app.post('/api/v1/signin', async (req, res)=>{
 
 //to post the content
 app.post('/api/v1/content', userMiddleware, async(req, res)=>{
-    const { title, link}= req.body
+    const { title, link, type}= req.body
 
     await contentModel.create({
-        title, link,
+        title, link,type, 
         tags:[],
         //@ts-ignore
         userId: req.userId 
